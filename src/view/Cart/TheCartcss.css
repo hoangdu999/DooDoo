@@ -1,0 +1,96 @@
+.cart {
+  gap: 20px;
+}
+.cart-inforcustom,
+.cart-inforcart {
+  flex-basis: 50%;
+}
+.inforcustom-header {
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.inforcustom-title,
+.payment-title {
+  font-size: 180%;
+  margin-bottom: 5px;
+}
+.inforcustom-form {
+  margin-bottom: 20px;
+}
+.inforcustom-form-mid,
+.inforcustom-form-top,
+.inforcustom-form-selector {
+  gap: 14px;
+}
+
+.inforcustom-form-address {
+  flex-basis: 20%;
+}
+.inforcustom-form-title {
+  font-size: 160%;
+  margin-bottom: 10px;
+}
+.payment-options {
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+.payment-option {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  height: 40px;
+  color: #414141;
+}
+.cart-inforcart-titel {
+  font-size: 160%;
+  margin-bottom: 5px;
+}
+
+.cart-item-image {
+  width: 61.4px;
+  height: 61.4px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+.cart-item-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 105%;
+  margin-left: 10px;
+}
+.cart-item {
+  padding: 30px 0;
+  border-bottom: 1px solid #ccc;
+}
+.cart-inforcart-code {
+  margin: 20px 0;
+  gap: 20px;
+  height: 50px;
+}
+.cart-inforcart-code-input {
+  flex-basis: 65%;
+}
+.cart-inforcart-code-button {
+  flex-basis: 35%;
+  background-color: #5f5f5f;
+}
+
+.sum-temp-box {
+  padding: 20px 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.sum-box {
+  padding-bottom: 40px;
+  border-bottom: 1px solid black;
+}
+.pay {
+  margin-top: 30px;
+}
+.delete-item {
+  justify-content: end;
+}

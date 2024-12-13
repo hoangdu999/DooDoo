@@ -1,0 +1,40 @@
+.home {
+}
+
+.xuhuong-box {
+  gap: 20px;
+}
+.xuhuong-img {
+  border: 1px solid rgb(161, 159, 159);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.xuhuong-text {
+  margin-top: 20px;
+  text-align: center;
+}
+.li-yeuthich {
+  border-radius: 15px;
+  flex-basis: 24%;
+  margin-bottom: 20px;
+}
+
+.ul-yeuthich {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.home-info {
+  background-image: url("https://lili.vn/wp-content/uploads/2021/05/Ve-chung-toi-banner_1f.jpg");
+  padding: 20px 0px 10px;
+}
+.info-sologan {
+  font-size: 150%;
+  margin-bottom: 15px;
+}
+.info-detail {
+  font-size: 130%;
+}
+.price-yeuthich {
+  text-decoration: line-through;
+}

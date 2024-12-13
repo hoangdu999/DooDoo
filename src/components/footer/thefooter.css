@@ -1,0 +1,45 @@
+.footer{
+    border-top: 1px solid red;
+    /* margin-top:20px ; */
+}
+.home-tomluoc{
+    padding: 30px 50px;
+    border-bottom: 1px solid black;
+}
+.footer-bot{
+    padding: 30px 50px;
+}
+.footer-infor{
+    flex-basis: 24%;
+}
+.footer-logo{
+    width: 200px;
+}
+.fas,.far{
+    font-size: 20px;
+}
+.fab{
+    font-size: 40px;
+}
+.footer-infortext{
+    font-size: 120%;
+}
+.footer-inforicon{
+    width: 25px;
+}
+.listservies-hr{
+    border-bottom: 1px solid black;
+    width: 30%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.listservies-box{
+    flex-basis: 24%;
+}
+.listservies-detail{
+    margin-bottom: 15px;
+    font-size: 110%;
+}
+.listservies-title{
+    font-size: 120%;
+}
