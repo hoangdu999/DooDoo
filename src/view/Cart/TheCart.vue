@@ -172,6 +172,9 @@ import constants from "/src/assets/js/constants";
 import Input from "../../components/input/Input.vue";
 import TheSelectlocation from "../../components/selectLocation/TheSelectlocation.vue";
 import MPopUp from "../../components/pop-up/MPopUp.vue";
+import { reactive, computed, onMounted, toRefs  } from "vue";
+import store from "/src/store/";
+
 export default {
   name: "TheDetail",
   components: {
@@ -181,50 +184,96 @@ export default {
     MsButton: MsButton,
     MPopUp: MPopUp,
   },
-  data() {
-    return {
-      ListCart: [],
+  // data() {
+  //   return {
+  //     ListCart: [],
+  //     parentQuantity: 1,
+  //     IsShow: false,
+  //   };
+  // },
+  // created() {
+  //   this.ListCart = this.$state.Cart;
+  //   console.log(this.ListCart);
+  // },
+
+  // mounted() {},
+
+  // methods: {
+  //   parsePrice(priceString) {
+  //     return parseInt(priceString.replace("đ", "").replace(/\,/g, ""));
+  //   },
+  //   calculateItemTotal(item) {
+  //     const price = this.parsePrice(item.sale || item.price);
+  //     return price * item.quantity;
+  //   },
+  //   isShow() {
+  //     this.IsShow = true;
+  //   },
+  //   closePopup() {
+  //     this.IsShow = false;
+  //   },
+  //   DeteleItem(item) {
+  //     this.ListCart = this.ListCart.filter((i) => i !== item);
+  //     this.$state.Cart = this.ListCart;
+  //   },
+  // },
+
+  // computed: {
+  //   // Tính tổng tiền của toàn bộ ListCart
+  //   calculateTotalPrice() {
+  //     return this.ListCart.reduce((total, item) => {
+  //       console.log(this.$state.Cart);
+
+  //       return total + this.calculateItemTotal(item); // Cộng dồn tổng giá
+  //     }, 0);
+  //   },
+  // },
+
+  setup(){
+
+    const StatePublic = store.state;
+    const state = reactive({
+      ListCart:[],
       parentQuantity: 1,
       IsShow: false,
-    };
-  },
-  created() {
-    this.ListCart = this.$state.Cart;
-    console.log(this.ListCart);
-  },
-
-  mounted() {},
-
-  methods: {
-    parsePrice(priceString) {
+    });
+    onMounted(()=>{
+      state.ListCart = StatePublic.Cart || [];
+      console.log(state.ListCart);
+    });
+    const parsePrice = (priceString) => {
       return parseInt(priceString.replace("đ", "").replace(/\,/g, ""));
-    },
-    calculateItemTotal(item) {
-      const price = this.parsePrice(item.sale || item.price);
+    };
+    const calculateItemTotal = (item) => {
+      const price = parsePrice(item.sale || item.price);
       return price * item.quantity;
-    },
-    isShow() {
-      this.IsShow = true;
-    },
-    closePopup() {
-      this.IsShow = false;
-    },
-    DeteleItem(item) {
-      this.ListCart = this.ListCart.filter((i) => i !== item);
-      this.$state.Cart = this.ListCart;
-    },
-  },
+    };
+    const isShow = () => {
+      state.IsShow = true;
+    };
+    const closePopup = () => {
+      state.IsShow = false;
+    };
+    const DeteleItem = (item) => {
+      state.ListCart = state.ListCart.filter((i) => i !== item);
+      StatePublic.Cart = state.ListCart;
+    };
+    const calculateTotalPrice = computed(() => {
+      return state.ListCart.reduce((total, item) => {
+        console.log(StatePublic.Cart);
 
-  computed: {
-    // Tính tổng tiền của toàn bộ ListCart
-    calculateTotalPrice() {
-      return this.ListCart.reduce((total, item) => {
-        console.log(this.$state.Cart);
-
-        return total + this.calculateItemTotal(item); // Cộng dồn tổng giá
+        return total + calculateItemTotal(item); // Cộng dồn tổng giá
       }, 0);
-    },
-  },
+    });
+    return {
+      ...toRefs(state), 
+      calculateItemTotal,
+      isShow,
+      closePopup,
+      DeteleItem,
+      calculateTotalPrice,
+    };
+  }
 };
 </script>
 <style scoped>

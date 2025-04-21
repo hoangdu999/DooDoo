@@ -58,69 +58,134 @@
 </template>
 
 <script>
+import { onMounted, reactive, toRefs } from "vue";
 import MsButton from "../../components/button/MsButton.vue";
 import TheCount from "../../components/count/TheCount.vue";
 import constants from "/src/assets/js/constants";
+import store from "/src/store/";
+import routerPublic from "/src/router/routes.js";
 
 export default {
   components: { TheCount, MsButton },
   name: "TheDetail",
-  data() {
-    return {
+  // data() {
+  //   return {
+  //     Const: constants,
+  //     parentQuantity: 1,
+  //     item: {},
+  //   };
+  // },
+  // created() {
+  //   console.log("Global state in TheDetail:", StatePublic);
+  //   const listTypeKey = RouterPublic.params.listType;
+  //   const itemName = RouterPublic.params.itemName;
+
+  //   if (!this.Const[listTypeKey]) {
+  //     console.error(`List type ${listTypeKey} not found in constants.`);
+  //     return;
+  //   }
+
+  //   const listType = this.Const[listTypeKey];
+
+  //   this.item = listType.find((item) => item.text === itemName);
+
+  //   if (!this.item) {
+  //     console.error(`Item ${itemName} not found in list type ${listTypeKey}.`);
+  //     console.log(itemName);
+  //     console.log(listTypeKey);
+  //   } else {
+  //     console.log("Matched item:", this.item);
+  //   }
+  // },
+
+  // mounted() {},
+
+  // methods: {
+  //   ToCart() {
+  //     console.log("Add to cart:", this.item);
+  //     console.log("Add to cart:", StatePublic.Cart);
+
+  //     const existingItem = StatePublic.Cart.find(
+  //       (cartItem) => cartItem.text === this.item.text
+  //     );
+  //     this.item.id = StatePublic.Cart.length + 1;
+
+  //     if (existingItem) {
+  //       existingItem.quantity += this.parentQuantity;
+  //     } else {
+  //       StatePublic.Cart.push({
+  //         ...this.item,
+  //         quantity: this.parentQuantity,
+  //       });
+  //     }
+
+  //     console.log("Updated Cart:", StatePublic.Cart);
+
+  //     RouterPublicr.push({ name: "Cart" });
+  //   },
+  //   computed: {},
+  // },
+  setup(){
+    
+    const RouterPublic = routerPublic;
+    const StatePublic = store.state;
+
+    const state = reactive({
       Const: constants,
       parentQuantity: 1,
       item: {},
-    };
-  },
-  created() {
-    console.log("Global state in TheDetail:", this.$state);
-    const listTypeKey = this.$route.params.listType;
-    const itemName = this.$route.params.itemName;
+    });
+    onMounted(()=>{
+      console.log("Global state in TheDetail:", StatePublic);
+      console.log("Global state in TheDetail:", RouterPublic);
 
-    if (!this.Const[listTypeKey]) {
-      console.error(`List type ${listTypeKey} not found in constants.`);
-      return;
-    }
+      const listTypeKey = RouterPublic.params.listType;
+      const itemName = RouterPublic.params.itemName;
 
-    const listType = this.Const[listTypeKey];
+      if (!this.Const[listTypeKey]) {
+        console.error(`List type ${listTypeKey} not found in constants.`);
+        return;
+      }
 
-    this.item = listType.find((item) => item.text === itemName);
+      const listType = this.Const[listTypeKey];
 
-    if (!this.item) {
-      console.error(`Item ${itemName} not found in list type ${listTypeKey}.`);
-      console.log(itemName);
-      console.log(listTypeKey);
-    } else {
-      console.log("Matched item:", this.item);
-    }
-  },
+      this.item = listType.find((item) => item.text === itemName);
 
-  mounted() {},
-
-  methods: {
-    ToCart() {
+      if (!this.item) {
+        console.error(`Item ${itemName} not found in list type ${listTypeKey}.`);
+        console.log(itemName);
+        console.log(listTypeKey);
+      } else {
+        console.log("Matched item:", this.item);
+      }
+    });
+    const ToCart = ()=>{
       console.log("Add to cart:", this.item);
-      console.log("Add to cart:", this.$state.Cart);
+      // console.log("Add to cart:", StatePublic.Cart);
 
-      const existingItem = this.$state.Cart.find(
+      const existingItem = StatePublic.Cart.find(
         (cartItem) => cartItem.text === this.item.text
       );
+      this.item.id = StatePublic.Cart.length + 1;
 
       if (existingItem) {
         existingItem.quantity += this.parentQuantity;
       } else {
-        this.$state.Cart.push({
+        StatePublic.Cart.push({
           ...this.item,
           quantity: this.parentQuantity,
         });
       }
 
-      console.log("Updated Cart:", this.$state.Cart);
+      console.log("Updated Cart:", StatePublic.Cart);
 
-      this.$router.push({ name: "Cart" });
-    },
-    computed: {},
-  },
+      RouterPublicr.push({ name: "Cart" });
+    };
+    return {
+      ...toRefs(state), 
+      ToCart,
+    };
+  }
 };
 </script>
 <style scoped>
